@@ -1,0 +1,40 @@
+<div class="editor-page">
+  <div class="container-page">
+    <div class="row">
+      <div class="col-md-10 offset-md-1 col-xs-12">
+        <form [formGroup]="articleForm" (ngSubmit)="submitForm()">
+          <div class="form-group">
+            <input formControlName="title" class="form-control" [ngClass]="{'is-invalid': f.title.touched && f.title.errors}"
+              type="text" placeholder="Article Title" />
+            <div *ngIf="f.title.touched && f.title.errors" class="invalid-feedback">
+              <div *ngIf="f.title.errors.required">
+                Title is required
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <input class="form-control form-control-lg" formControlName="description" type="text" [ngClass]="{'is-invalid': f.description.touched && f.description.errors}"
+              placeholder="What's the article about?" />
+            <div *ngIf="f.description.touched && f.description.errors" class="invalid-feedback">
+              <div *ngIf="f.description.errors.required">
+                Article Description is required
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <textarea class="form-control" formControlName="body" rows="8" [ngClass]="{'is-invalid': f.body.touched && f.body.errors}"
+              placeholder="Write your article"></textarea>
+            <div *ngIf="f.body.touched && f.body.errors" class="invalid-feedback">
+              <div *ngIf="f.body.errors.required">
+                Article body is required
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-lg pull-xs-right btn-primary" type="submit">
+            Publish Article
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

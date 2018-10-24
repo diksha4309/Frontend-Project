@@ -1,0 +1,64 @@
+<div class="article-page">
+    <div class="banner">
+        <div class="container">
+            <h1>{{article.title}}</h1>
+            <app-article-data [article]="article">
+                <span *ngIf="canModify">
+                    <a class="btn btn-sm btn-outline-secondary" [routerLink]="['/editor', article.slug]">
+                        <i class="ion-edit"></i> Edit Article
+                    </a>
+                    <button class="btn btn-sm btn-outline-danger" (click)="deleteArticle()">
+                        <i class="ion-trash-a"></i> Delete Article
+                    </button>
+                </span>
+            </app-article-data>
+        </div>
+    </div>
+
+    <div class="container page">
+        <div class="col-md-12">
+            <div [innerHTML]="article.body">
+            </div>
+            <ul class="tag-list">
+                <li *ngFor="let tag of article.tagList" class="tag-default tag-pill tag-outline">
+                    {{ tag }}
+                </li>
+            </ul>
+        </div>
+    </div>
+    <hr />
+    <div>
+        <div class="row">
+            <div class="col-xs-12 col-md-8 offset-md-2">
+                <div class="articles">
+                    <app-article-data [article]="article">
+                    </app-article-data>
+                    <hr />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-md-8 offset-md-2">
+            <div *appAuth="false">
+                <a [routerLink]="['/login']">Sign in</a> or <a [routerLink]="['/register']">Sign up</a> to add comments
+                on this article.
+            </div>
+            <div *appAuth="true">
+                <form class="card comment-form" (ngSubmit)="addComment()">
+                    <div class="card-block">
+                        <textarea class="form-control" placeholder="Write a comment..." rows="2" [formControl]="commentControl"></textarea>
+                    </div>
+                    <div class="card-footer">
+                        <img [src]="currentUser.image" class="comment-author-img" />
+                        <button class="btn btn-sm btn-primary" type="submit">
+                            Post Comment
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <app-article-comment *ngFor="let comment of comments" [comment]="comment" (deleteComment)="onDeleteComment(comment)">
+            </app-article-comment>
+        </div>
+    </div>
+</div>
