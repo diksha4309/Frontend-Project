@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Errors } from 'src/app/models/errors.model';
 
 @Component({
   selector: 'app-register',
@@ -9,6 +10,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  errors: Errors = {errors: {}};
   model: any = {};
   constructor(private userService:UserService,
               private router:Router) { }
@@ -18,7 +20,8 @@ export class RegisterComponent implements OnInit {
 
   register(credentials:any){
     this.userService.attemptRegister(credentials)
-    .subscribe(data => this.router.navigate(['/']));
+    .subscribe(data => this.router.navigate(['/']),err => {
+      this.errors = err; });
   }
 
 }

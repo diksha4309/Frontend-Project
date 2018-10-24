@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
-import { User } from 'src/app/models/user.model';
+import { Errors } from 'src/app/models/errors.model';
 
 @Component({
   selector: 'app-login',
@@ -10,6 +9,7 @@ import { User } from 'src/app/models/user.model';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  errors: Errors = {errors: {}}; 
   model: any = {};
   constructor(private userService: UserService,
               private router: Router){}
@@ -20,6 +20,8 @@ export class LoginComponent implements OnInit {
 
   login(credentials:any){
    this.userService.attemptLogin(credentials)
-    .subscribe(data => this.router.navigate(['/']));
+    .subscribe(() => this.router.navigate(['/']),
+    err => {
+      this.errors = err; });
   }
 }

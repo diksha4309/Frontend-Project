@@ -3,6 +3,7 @@
     <form name="loginForm" #f="ngForm" class="text-xs-center" (ngSubmit)="f.form.valid && login(f.value)" novalidate>
       <h2>Sign In</h2>
       <a [routerLink]="['/register']">Need an account?</a><br>
+      <app-errors [errors]="errors"></app-errors>
       <div class="form-group">
         <input type="text" name="email" placeholder="Enter Email" [(ngModel)]="model.email" #email="ngModel" [ngClass]="{ 'is-invalid': f.submitted && email.invalid }"
           required email /><br><br>

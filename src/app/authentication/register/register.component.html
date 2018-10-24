@@ -4,6 +4,7 @@
             <form #f="ngForm" class="text-xs-center" (ngSubmit)="f.form.valid && register(f.value)">
                 <h2>Sign Up</h2>
                 <a [routerLink]="['/login']">Have an account?</a><br>
+                <app-errors [errors]="errors"></app-errors>
                 <div class="form-group">
                     <input type="text" name="username" placeholder="Username" [(ngModel)]="model.username" [ngClass]="{'is-invalid':f.submitted && username.invalid }"
                         #username="ngModel" required /><br><br>
